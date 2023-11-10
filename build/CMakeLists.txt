@@ -91,6 +91,30 @@ else ()
 	#   ${LUA_SRC_PATH}/lutf8lib.c ${LUA_SRC_PATH}/loadlib.c )
 endif ()
 
+#begin lua-memstream
+set (MEMSTREAM_SRC luamemstream/memstream.c)
+set_property(
+	SOURCE ${MEMSTREAM_SRC}
+	APPEND
+	PROPERTY COMPILE_DEFINITIONS
+	LUA_LIB
+)
+set (THIRDPART_SRC ${THIRDPART_SRC} ${MEMSTREAM_SRC})
+#end lua-memstream
+ 
+#begin lua-protobuf
+set (PROTOBUF_SRC lua-protobuf/pb.c)
+set_property(
+     SOURCE ${PROTOBUF_SRC}
+     APPEND
+     PROPERTY COMPILE_DEFINITIONS
+     LUA_LIB
+)
+list(APPEND THIRDPART_INC  lua-rapidjson/include)
+set (THIRDPART_SRC ${THIRDPART_SRC} ${PROTOBUF_SRC})
+#end lua-protobuf
+
+ 
 set ( LUA_SOCKET
     luasocket/auxiliar.c
     luasocket/buffer.c
