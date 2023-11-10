@@ -799,6 +799,10 @@ static const struct luaL_Reg memstream [] =
 
 LUALIB_API int luaopen_memstream(lua_State *L)
 {
-    luaL_newlib(L, memstream);
+    #if LUA_VERSION_NUM >= 502
+        luaL_newlib(L, memstream);
+    #else
+        luaL_register(L, "memstream", memstream);
+    #endif
     return 1;
 }
